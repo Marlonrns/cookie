@@ -48,6 +48,10 @@ export default {
         new HtmlWebpackPlugin({
             template: './src/index.html'
         }),
+        new HtmlWebpackPlugin({
+            filename: '200.html',
+            template: './src/index.html'
+        }),
         new MiniCssExtractPlugin(),
         // new PurgeCSSPlugin({
         //     paths: glob.sync(`src/views/**/*`, { nodir: true }),
