@@ -8,11 +8,13 @@ import App from './App.vue';
 import ToDo from './pages/ToDo.vue';
 import Home from './pages/Home.vue';
 import Clicker from './pages/Clicker.vue';
+import RickAndMorty from './pages/RickAndMorty.vue';
 
 const routes = [
  {path: '/', component: Home},
  {path: '/todo', component: ToDo},
  {path: '/clicker', component: Clicker},
+ {path: '/rickandmorty', component: RickAndMorty},
 ];
 
 const router = VueRouter.createRouter({

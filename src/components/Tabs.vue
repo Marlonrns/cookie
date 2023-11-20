@@ -9,6 +9,9 @@
         <li class="nav-item">
             <router-link class="nav-link" to="/clicker" activeClass="active">Clicker</router-link>
         </li>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/rickandmorty" activeClass="active">Rick And Morty</router-link>
+        </li>
     </ul>
 </template>
 
