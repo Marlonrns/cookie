@@ -21,6 +21,8 @@ export default {
         static: {
             directory: path.resolve(__dirname, 'public')
         },
+        historyApiFallback: true,
+        open: true,
         port: 9000,
         compress: true,
     },
