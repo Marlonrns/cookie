@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <input class="form-control my-3" type="text" v-model="searchText" @input="search">
         <button class="btn btn-primary" @click="prev" :disabled="!info.prev">Previous</button>
         <button class="btn btn-primary" @click="next" :disabled="!info.next">Next</button>
         <div class="row">
@@ -38,7 +39,7 @@ export default {
         document.addEventListener('scroll', ()=> {
             if(window.scrollY+window.innerHeight > document.body.clientHeight-100){
                 if(!this.loading && this.info.next){
-                    this.next();
+                    this.infiniteNext();
                 }
             }
         });
@@ -52,16 +53,25 @@ export default {
                 next: null,
                 prev: null
             },
-            loading: false
+            loading: false,
+            searchText: '',
+            debounce: null
         }
     },
     methods: {
         getCharacters(url){
             this.loading = true;
-            axios.get(url).then(response => {
+            axios.get(url, {
+                params: {
+                    name: this.searchText
+                }
+            }).then(response => {
                 console.log(response.data);
-                this.results = [...this.results, ...response.data.results];
+                this.results = response.data.results;
                 this.info = response.data.info;
+                this.loading = false;
+            }).catch((error)=> {
+                this.results = [];
                 this.loading = false;
             });
         },
@@ -70,6 +80,26 @@ export default {
         },
         prev(){
             this.getCharacters(this.info.prev);
+        },
+        infiniteNext(){
+            this.loading = true;
+            axios.get(this.info.next, {
+                params: {
+                    name: this.searchText
+                }
+            }).then(response => {
+                console.log(response.data);
+                this.results = [...this.results, ...response.data.results];
+                this.info = response.data.info;
+                this.loading = false;
+            });
+        },
+        search(){
+            clearTimeout(this.debounce);
+            this.debounce = setTimeout(()=>{
+                this.getCharacters('https://rickandmortyapi.com/api/character');
+            }, 750);
+            
         }
         
     }
