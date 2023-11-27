@@ -12,6 +12,9 @@
         <li class="nav-item">
             <router-link class="nav-link" to="/rickandmorty" activeClass="active">Rick And Morty</router-link>
         </li>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/gmaps" activeClass="active">GMaps</router-link>
+        </li>
     </ul>
 </template>
 

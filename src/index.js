@@ -9,12 +9,14 @@ import ToDo from './pages/ToDo.vue';
 import Home from './pages/Home.vue';
 import Clicker from './pages/Clicker.vue';
 import RickAndMorty from './pages/RickAndMorty.vue';
+import GoogleMaps from './pages/GoogleMaps.vue';
 
 const routes = [
  {path: '/', component: Home},
  {path: '/todo', component: ToDo},
  {path: '/clicker', component: Clicker},
  {path: '/rickandmorty', component: RickAndMorty},
+ {path: '/gmaps', component: GoogleMaps},
 ];
 
 const router = VueRouter.createRouter({
