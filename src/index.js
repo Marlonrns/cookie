@@ -10,13 +10,15 @@ import Home from './pages/Home.vue';
 import Clicker from './pages/Clicker.vue';
 import RickAndMorty from './pages/RickAndMorty.vue';
 import GoogleMaps from './pages/GoogleMaps.vue';
+import Leaflet from './pages/Leaflet.vue';
 
 const routes = [
- {path: '/', component: Home},
- {path: '/todo', component: ToDo},
- {path: '/clicker', component: Clicker},
- {path: '/rickandmorty', component: RickAndMorty},
- {path: '/gmaps', component: GoogleMaps},
+ {path: '/', component: Home, name: 'Home'},
+ {path: '/todo', component: ToDo, name: 'ToDo'},
+ {path: '/clicker', component: Clicker, name: 'Clicker'},
+ {path: '/rickandmorty', component: RickAndMorty, name: 'Rick And Morty'},
+ {path: '/gmaps', component: GoogleMaps, name: 'Google Maps'},
+ {path: '/leaflet', component: Leaflet, name: 'Leaflet'}
 ];
 
 const router = VueRouter.createRouter({
