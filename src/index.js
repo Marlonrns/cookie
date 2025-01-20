@@ -1,31 +1,66 @@
-import './style.scss';
+console.log('JavaScript töötab!');
 
-import * as bootstrap from 'bootstrap';
-import { createApp } from 'vue';
-import * as VueRouter from 'vue-router';
+const app = document.getElementById('app');
+if (!app) {
+  console.error('Element with id="app" is missing in HTML!');
+} else {
+  const gameDiv = document.createElement('div');
+  gameDiv.id = 'game';
 
-import App from './App.vue';
-import ToDo from './pages/ToDo.vue';
-import Home from './pages/Home.vue';
-import Clicker from './pages/Clicker.vue';
-import RickAndMorty from './pages/RickAndMorty.vue';
-import GoogleMaps from './pages/GoogleMaps.vue';
-import Leaflet from './pages/Leaflet.vue';
+  const button = document.createElement('button');
+  button.id = 'cookie-button';
+  button.textContent = 'Vajuta küpsist!';
 
-const routes = [
- {path: '/', component: Home, name: 'Home'},
- {path: '/todo', component: ToDo, name: 'ToDo'},
- {path: '/clicker', component: Clicker, name: 'Clicker'},
- {path: '/rickandmorty', component: RickAndMorty, name: 'Rick And Morty'},
- {path: '/gmaps', component: GoogleMaps, name: 'Google Maps'},
- {path: '/leaflet', component: Leaflet, name: 'Leaflet'}
-];
+  const countText = document.createElement('p');
+  countText.id = 'cookie-count';
+  countText.textContent = 'Küpsised: 0';
 
-const router = VueRouter.createRouter({
-    history: VueRouter.createWebHistory(),
-    routes
-});
+  const message = document.createElement('p');
+  message.id = 'message';
+  message.textContent = '';
 
-const app = createApp(App);
-app.use(router);
-app.mount('#app');
+  const timerText = document.createElement('p');
+  timerText.id = 'timer';
+  timerText.textContent = 'Aega jäänud: 60 sekundit';
+
+
+  const cookieImage = document.createElement('img');
+  cookieImage.src = 'cookie.png';
+  cookieImage.alt = 'Küpsis';
+  cookieImage.style.width = '100px'; 
+
+  gameDiv.appendChild(button);
+  gameDiv.appendChild(countText);
+  gameDiv.appendChild(timerText);
+  gameDiv.appendChild(message);
+  app.appendChild(gameDiv);
+
+  let cookieCount = 0;
+  let timeLeft = 60;
+  let gameOver = false;
+
+
+  const timerInterval = setInterval(() => {
+    timeLeft--;
+    timerText.textContent = `Aega jäänud: ${timeLeft} sekundit`;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      gameOver = true;
+      button.disabled = true; 
+      message.textContent = `Mäng läbi! Kokku said ${cookieCount} küpsist.`;
+    }
+  }, 1000);
+
+  button.addEventListener('click', () => {
+    if (!gameOver) {
+      cookieCount++;
+      countText.textContent = `Küpsised: ${cookieCount}`;
+      if (cookieCount % 10 === 0) {
+        message.textContent = 'Wow! Sa said 10 küpsist!';
+      } else {
+        message.textContent = '';
+      }
+    }
+  });
+}
