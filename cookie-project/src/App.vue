@@ -1,28 +1,57 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+
+const cookies = ref(0);
+const timeLeft = ref(60);
+let timer = null;
+
+const clickCookie = () => {
+  if (timeLeft.value > 0) {
+    cookies.value++;
+  }
+};
+
+const startTimer = () => {
+  timer = setInterval(() => {
+    if (timeLeft.value > 0) {
+      timeLeft.value--;
+    } else {
+      clearInterval(timer);
+    }
+  }, 1000);
+};
+
+const restartGame = () => {
+  cookies.value = 0;
+  timeLeft.value = 60;
+  startTimer();
+};
+
+onMounted(() => {
+  startTimer();
+});
+</script>
+
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>Cookie Clicker</h1>
+    <p>Time Left: {{ timeLeft }}s</p>
+    <button @click="clickCookie" :disabled="timeLeft === 0">
+      🍪 Click the Cookie
+    </button>
+    <p>Cookies: {{ cookies }}</p>
+    <button v-if="timeLeft === 0" @click="restartGame">Restart</button>
   </div>
 </template>
 
-<script>
-import HelloWorld from "./components/HelloWorld.vue";
-
-export default {
-  name: "App",
-  components: {
-    HelloWorld,
-  },
-};
-</script>
-
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: Arial, sans-serif;
+}
+button {
+  font-size: 18px;
+  padding: 10px;
+  margin: 10px;
 }
 </style>
